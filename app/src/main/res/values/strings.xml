@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MegaBLASTER3000</string>
+    <string name="fit_image_to_scan">fit_image_to_scan</string>
 </resources>
