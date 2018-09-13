@@ -50,3 +50,8 @@ sceneform.asset('sampledata/mini_obj.obj',
         'default',
         'sampledata/mini_obj.sfa',
         'src/main/assets/mini_obj')
+
+sceneform.asset('sampledata/RubberDuck_obj_9pffFcv7LSm_93tcktEhsEV/RubberDuck.obj',
+        'default',
+        'sampledata/RubberDuck_obj_9pffFcv7LSm_93tcktEhsEV/RubberDuck.sfa',
+        'src/main/assets/RubberDuck')
