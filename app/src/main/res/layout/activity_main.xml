@@ -6,18 +6,15 @@
     tools:context=".MainActivity">
 
     <fragment
-        android:id="@+id/arimage_fragment"
+        android:id="@+id/sceneform_fragment"
+        android:name="com.google.ar.sceneform.ux.ArFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.penys.fi.megablaster3000.AugmentImageFragment"/>
+        android:layout_height="match_parent"/>
 
-    <ImageView
-        android:id="@+id/fit_to_scan_img"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter"
-        android:src="@drawable/fit_to_scan"
-        android:contentDescription="@string/fit_image_to_scan" />
+    <Button
+        android:id="@+id/puttis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </FrameLayout>
