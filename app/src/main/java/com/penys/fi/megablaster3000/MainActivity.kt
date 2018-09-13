@@ -3,6 +3,7 @@ package com.penys.fi.megablaster3000
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.google.ar.core.HitResult
 import com.google.ar.core.Plane
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var fragment: ArFragment
     lateinit var renderableFuture: CompletableFuture<ModelRenderable>
     lateinit var modelUri: Uri
-
+     var nro: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,36 +39,65 @@ class MainActivity : AppCompatActivity() {
 
         renderableFuture.thenAccept { it -> testRenderable = it }
 
+        puttis.setOnClickListener {
 
 
-        fragment.arSceneView.scene.addOnUpdateListener {
-            if(fragment.arSceneView.arFrame.camera.trackingState == TrackingState.TRACKING) {
-                addObject()
-                
-            } else {
 
-            }
+
+            fragment.arSceneView.scene.addOnUpdateListener {
+                if (fragment.arSceneView.arFrame.camera.trackingState == TrackingState.TRACKING) {
+                    for (i in 1..4)
+                        addObject()
+
+                }
+            
+                    puttis.isClickable = false
+                }
+
         }
     }
 
-    val pose = Pose.makeTranslation(0.0f, 0.0f, -1.3f)
+    var rndm = 0.1f + Math.random() * (0.5f - 0.1f)
 
     private fun addObject() {
         val frame =  fragment.arSceneView.arFrame
         val pt = getScreenCenter()
         val hits: List<HitResult>
         if(frame != null && testRenderable != null) {
-            hits = frame.hitTest(0.2f, 0.3f)
+            hits = frame.hitTest(0.1f, 0.2f)
             for(hit in hits) {
                 val trackable = hit.trackable
                 if (trackable is Plane) {
+
+
                     val anchor = hit!!.createAnchor()
                     val anchorNode = AnchorNode(anchor)
                     anchorNode.setParent(fragment.arSceneView.scene)
                     val mNode = TransformableNode(fragment.transformationSystem)
                     mNode.setParent(anchorNode)
+                    if(nro <= 4) {
                     mNode.renderable = testRenderable
-                    mNode.select()
+
+
+                        mNode.select()
+                    }else {
+                        break
+                    }
+
+
+                    mNode.setOnTapListener { _, _ ->
+                    anchorNode.removeChild(mNode)
+
+                        nro--
+
+                        Log.d("NUMERO", "$nro")
+
+                        addObject()
+                        return@setOnTapListener
+
+                    }
+                    nro++
+                    Log.d("NUMERO", "$nro")
                     break
                 }
             }
