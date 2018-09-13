@@ -43,9 +43,6 @@ class MainActivity : AppCompatActivity() {
         fragment.arSceneView.scene.addOnUpdateListener {
             if(fragment.arSceneView.arFrame.camera.trackingState == TrackingState.TRACKING) {
                 addObject()
-                
-            } else {
-
             }
         }
     }
@@ -57,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         val pt = getScreenCenter()
         val hits: List<HitResult>
         if(frame != null && testRenderable != null) {
-            hits = frame.hitTest(0.2f, 0.3f)
+            hits = frame.hitTest(pt.x.toFloat(), pt.y.toFloat())
             for(hit in hits) {
                 val trackable = hit.trackable
                 if (trackable is Plane) {
